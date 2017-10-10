@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -12,9 +13,15 @@ namespace Tetris2
         SpriteBatch spriteBatch;
         static public KeyboardState currentkeyboardstate;
         static public KeyboardState previouskeyboardstate;
-        static public int tablewidth = 11;
+        static public int tablewidth = 10;
         static public int tableheight = 15;
         static public int createnewblock;
+        static Random r;
+
+        int RowCheck;
+        int ColumnCheck;
+        int SkipWhile;
+        int BlockCounter;
 
         Texture2D blocktexture;
 
@@ -33,18 +40,23 @@ namespace Tetris2
         {
             IsMouseVisible = true;
             graphics.PreferredBackBufferHeight = 800;
-            graphics.PreferredBackBufferWidth = 600;
+            graphics.PreferredBackBufferWidth = 1300;
             graphics.ApplyChanges();
+            //graphics.ToggleFullScreen();
+
+            r = new Random();
 
             TetrisTable = new int[tablewidth, tableheight];
 
             //block = new Content.Block(Content.Load<Texture2D>("block"), 1, this);
 
             blocktexture = Content.Load<Texture2D>("block");
-            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), 2, this));
+            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), r.Next(7,8), this));
 
             for (int i = 0; i < tablewidth; i++)
+            {
                 TetrisTable[i, tableheight-1] = 1;
+            }
 
 
             base.Initialize();
@@ -66,7 +78,7 @@ namespace Tetris2
                 Exit();
 
             if (Keyboard.GetState().IsKeyDown(Keys.P)) Debugger.Break();
-            //if (Keyboard.GetState().IsKeyDown(Keys.F)) graphics.IsFullScreen = true;
+            if (Keyboard.GetState().IsKeyDown(Keys.F)) graphics.ToggleFullScreen();
 
             previouskeyboardstate = currentkeyboardstate;
             currentkeyboardstate = Keyboard.GetState();
@@ -84,6 +96,20 @@ namespace Tetris2
                 NewBlock();
                 createnewblock = 0;
             }
+
+            while (TetrisTable[ColumnCheck, RowCheck] == 1 && SkipWhile < tablewidth)
+            {
+                SkipWhile++;
+                BlockCounter++;
+                ColumnCheck = MathHelper.Min(ColumnCheck+1,tablewidth-1);
+            }
+            if (BlockCounter == tablewidth)
+            {
+                RemoveRow(RowCheck);
+            }
+            BlockCounter = 0;
+            RowCheck = (RowCheck + 1) % 14;
+            SkipWhile = 0;
 
             base.Update(gameTime);
         }
@@ -105,7 +131,15 @@ namespace Tetris2
 
         public void NewBlock()
         {
-            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), 1, this));
+            int RandomBlock = r.Next(7,8);
+            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), RandomBlock, this));
+        }
+
+        private void RemoveRow(int x)
+        {
+            for (int i = x; i > 0; i--)
+                for (int p = 0; p < tablewidth; p++)
+                    TetrisTable[p, i] = TetrisTable[p, i-1];
         }
     }
 }
