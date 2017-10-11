@@ -51,7 +51,7 @@ namespace Tetris2
             //block = new Content.Block(Content.Load<Texture2D>("block"), 1, this);
 
             blocktexture = Content.Load<Texture2D>("block");
-            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), r.Next(7,8), this));
+            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), r.Next(1,8), this));
 
             for (int i = 0; i < tablewidth; i++)
             {
@@ -131,7 +131,7 @@ namespace Tetris2
 
         public void NewBlock()
         {
-            int RandomBlock = r.Next(7,8);
+            int RandomBlock = r.Next(1,8);
             blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), RandomBlock, this));
         }
 
