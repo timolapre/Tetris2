@@ -18,6 +18,8 @@ namespace Tetris2
         static public int createnewblock;
         static Random r;
 
+        Score score;
+
         public int Score;
 
         int RowCheck;
@@ -142,8 +144,7 @@ namespace Tetris2
             for (int i = x; i > 0; i--)
                 for (int p = 0; p < tablewidth; p++)
                     TetrisTable[p, i] = TetrisTable[p, i-1];
-                    RemovedRow++;
-                    Score.RemovedRow();
+                    score.RemovedRow++;           
         }
     }
 }
