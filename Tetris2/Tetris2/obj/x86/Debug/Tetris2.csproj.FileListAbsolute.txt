@@ -50,3 +50,5 @@ C:\Users\timol\Source\Repos\Tetris2\Tetris2\Tetris2\bin\Windows\x86\Debug\SharpD
 C:\Users\timol\Source\Repos\Tetris2\Tetris2\Tetris2\bin\Windows\x86\Debug\SharpDX.RawInput.xml
 C:\Users\timol\Source\Repos\Tetris2\Tetris2\Tetris2\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\timol\Source\Repos\Tetris2\Tetris2\Tetris2\obj\x86\Debug\Tetris2.csprojResolveAssemblyReference.cache
+C:\Users\Henkdesteen\Source\Repos\Tetris23\Tetris2\Tetris2\obj\x86\Debug\Tetris2.exe
+C:\Users\Henkdesteen\Source\Repos\Tetris23\Tetris2\Tetris2\obj\x86\Debug\Tetris2.pdb
