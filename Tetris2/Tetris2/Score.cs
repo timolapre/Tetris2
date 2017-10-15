@@ -13,9 +13,9 @@ namespace Tetris2
 
         public void score()
         {
-            if ()
+            if (1==1)
             {
-
+                
             }
         }
     }

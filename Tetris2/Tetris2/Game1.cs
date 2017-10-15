@@ -19,7 +19,6 @@ namespace Tetris2
         static Random r;
 
         Score score;
-
         public int Score;
 
         int RowCheck;
@@ -55,7 +54,7 @@ namespace Tetris2
             //block = new Content.Block(Content.Load<Texture2D>("block"), 1, this);
 
             blocktexture = Content.Load<Texture2D>("block");
-            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), r.Next(1,8), this));
+            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), r.Next(6,8), this));
 
             for (int i = 0; i < tablewidth; i++)
             {
@@ -107,13 +106,20 @@ namespace Tetris2
                 BlockCounter++;
                 ColumnCheck = MathHelper.Min(ColumnCheck+1,tablewidth-1);
             }
+            if(TetrisTable[ColumnCheck, RowCheck] != 1)
+            {
+                ColumnCheck = 0;
+                SkipWhile = 0;
+            }
             if (BlockCounter == tablewidth)
             {
                 RemoveRow(RowCheck);
+                BlockCounter = 0;
+                Console.WriteLine(RowCheck + " " + ColumnCheck + " " + BlockCounter);
             }
             BlockCounter = 0;
-            RowCheck = (RowCheck + 1) % 14;
             SkipWhile = 0;
+            RowCheck = (RowCheck + 1) % (tableheight - 1);
 
             base.Update(gameTime);
         }
@@ -127,7 +133,7 @@ namespace Tetris2
             for (int i = 0; i < tableheight; i++)
                 for (int x = 0; x < tablewidth; x++)
                     if (TetrisTable[x, i] == 1)
-                        spriteBatch.Draw(blocktexture, new Vector2(x * blocktexture.Width, i * blocktexture.Height), Color.White);
+                        spriteBatch.Draw(blocktexture, new Vector2(x * blocktexture.Width, i * blocktexture.Height), Color.SeaGreen);
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -144,7 +150,7 @@ namespace Tetris2
             for (int i = x; i > 0; i--)
                 for (int p = 0; p < tablewidth; p++)
                     TetrisTable[p, i] = TetrisTable[p, i-1];
-                    score.RemovedRow++;           
+                    //score.RemovedRow++;           
         }
     }
 }
