@@ -13,10 +13,11 @@ namespace Tetris2
         SpriteBatch spriteBatch;
         static public KeyboardState currentkeyboardstate;
         static public KeyboardState previouskeyboardstate;
-        static public int tablewidth = 10;
-        static public int tableheight = 15;
+        static public int tablewidth = 12;
+        static public int tableheight = 20;
         static public int createnewblock;
         static Random r;
+        static public int GameOver = 0;
 
         Score score;
         public int Score;
@@ -26,6 +27,7 @@ namespace Tetris2
         int SkipWhile;
         int BlockCounter;
 
+        SpriteFont font;
         Texture2D blocktexture;
 
         static public int[,] TetrisTable;
@@ -49,12 +51,12 @@ namespace Tetris2
 
             r = new Random();
 
-            TetrisTable = new int[tablewidth, tableheight];
+            TetrisTable = new int[tablewidth+1, tableheight];
 
-            //block = new Content.Block(Content.Load<Texture2D>("block"), 1, this);
+            //block = new Content.Block(Content.Load<Texture2D>("block2"), 1, this);
 
-            blocktexture = Content.Load<Texture2D>("block");
-            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), r.Next(6,8), this));
+            blocktexture = Content.Load<Texture2D>("block2");
+            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1,8), this));
 
             for (int i = 0; i < tablewidth; i++)
             {
@@ -68,7 +70,7 @@ namespace Tetris2
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            font = Content.Load<SpriteFont>("font");
         }
 
         protected override void UnloadContent()
@@ -82,6 +84,7 @@ namespace Tetris2
 
             if (Keyboard.GetState().IsKeyDown(Keys.P)) Debugger.Break();
             if (Keyboard.GetState().IsKeyDown(Keys.F)) graphics.ToggleFullScreen();
+            if (Keyboard.GetState().IsKeyDown(Keys.O)) ResetTable();
 
             previouskeyboardstate = currentkeyboardstate;
             currentkeyboardstate = Keyboard.GetState();
@@ -96,8 +99,11 @@ namespace Tetris2
             }
             else
             {
-                NewBlock();
+                if (GameOver == 0)
+                    NewBlock();
+
                 createnewblock = 0;
+                
             }
 
             while (TetrisTable[ColumnCheck, RowCheck] == 1 && SkipWhile < tablewidth)
@@ -105,12 +111,8 @@ namespace Tetris2
                 SkipWhile++;
                 BlockCounter++;
                 ColumnCheck = MathHelper.Min(ColumnCheck+1,tablewidth-1);
-            }
-            if(TetrisTable[ColumnCheck, RowCheck] != 1)
-            {
-                ColumnCheck = 0;
-                SkipWhile = 0;
-            }
+                Console.WriteLine(BlockCounter +" "+ RowCheck);
+           }
             if (BlockCounter == tablewidth)
             {
                 RemoveRow(RowCheck);
@@ -119,7 +121,15 @@ namespace Tetris2
             }
             BlockCounter = 0;
             SkipWhile = 0;
+            ColumnCheck = 0;
             RowCheck = (RowCheck + 1) % (tableheight - 1);
+
+            if(GameOver == 1 && Keyboard.GetState().IsKeyDown(Keys.Space))
+                {
+                    ResetTable();
+                    GameOver = 0;
+                    blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1, 8), this));
+                }
 
             base.Update(gameTime);
         }
@@ -134,6 +144,8 @@ namespace Tetris2
                 for (int x = 0; x < tablewidth; x++)
                     if (TetrisTable[x, i] == 1)
                         spriteBatch.Draw(blocktexture, new Vector2(x * blocktexture.Width, i * blocktexture.Height), Color.SeaGreen);
+            if (GameOver == 1)
+                spriteBatch.DrawString(font, "Press Space to play again", new Vector2(60, 400), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -142,7 +154,7 @@ namespace Tetris2
         public void NewBlock()
         {
             int RandomBlock = r.Next(1,8);
-            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block"), RandomBlock, this));
+            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), RandomBlock, this));
         }
 
         private void RemoveRow(int x)
@@ -151,6 +163,15 @@ namespace Tetris2
                 for (int p = 0; p < tablewidth; p++)
                     TetrisTable[p, i] = TetrisTable[p, i-1];
                     //score.RemovedRow++;           
+        }
+        
+        private void ResetTable()
+        {
+            Array.Clear(TetrisTable, 0, TetrisTable.Length);
+            for (int i = 0; i < tablewidth; i++)
+            {
+                TetrisTable[i, tableheight - 1] = 1;
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Tetris2.Content
         Texture2D texture;
         int blockID;
         int[,] table;
-        int posX = 0;
+        int posX = Game1.tablewidth/2-2;
         int posY = 0;
         int rotation = 0;
         int timer;
@@ -50,6 +50,7 @@ namespace Tetris2.Content
                 timer = 0;
             }
 
+
             //Rotation
             if (Game1.currentkeyboardstate.IsKeyDown(Keys.Up) && Game1.previouskeyboardstate.IsKeyUp(Keys.Up))
                 rotation = (rotation + 1) % 4;
@@ -83,7 +84,7 @@ namespace Tetris2.Content
             {
                 if (table[2, 0] == 1 || table[2, 1] == 1 || table[2, 2] == 1)
                 {
-                    if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 3] == 1 && table[2, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 3] == 1 && table[2, 1] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth - 3), posY + 3] == 1 && table[2, 2] == 1))
+                    if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 3] == 1 && table[2, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 3] == 1 && table[2, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 3] == 1 && table[2, 2] == 1))
                     {
                         if (timer > 30)
                         {
@@ -96,7 +97,7 @@ namespace Tetris2.Content
                         }
                     }
                 }
-                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 2] == 1 && table[1, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 2] == 1 && table[1, 1] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth - 3), posY + 2] == 1 && table[1, 2] == 1))
+                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 2] == 1 && table[1, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 2] == 1 && table[1, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 2] == 1 && table[1, 2] == 1))
                 {
                     if (timer > 30)
                     {
@@ -108,7 +109,7 @@ namespace Tetris2.Content
                         Game1.createnewblock = 1;
                     }
                 }
-                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 1] == 1 && table[0, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 1] == 1 && table[0, 1] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth - 3), posY + 1] == 1 && table[0, 2] == 1))
+                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 1] == 1 && table[0, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 1] == 1 && table[0, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 1] == 1 && table[0, 2] == 1))
                 {
                     if (timer > 30)
                     {
@@ -120,6 +121,15 @@ namespace Tetris2.Content
                         Game1.createnewblock = 1;
                     }
                 }
+            }
+
+            //GameOver
+            if (falling == false && posY <= 2)
+                Game1.GameOver = 1;
+
+            if(Game1.GameOver == 1)
+            {
+                posY = 3;
             }
         }
 
