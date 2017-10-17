@@ -42,9 +42,9 @@ namespace Tetris2.Content
         public void BlockUpdate()
         {
             timer++;
-            if (Keyboard.GetState().IsKeyDown(Keys.Down)) timer += 7;
+            if (Keyboard.GetState().IsKeyDown(Keys.Down)) timer += 15;
             //Falling
-            if (timer > 40 && falling)
+            if (timer > 40 - (game.level) && falling)
             {
                 posY++;
                 timer = 0;

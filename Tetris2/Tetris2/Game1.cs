@@ -21,6 +21,8 @@ namespace Tetris2
 
         Score score;
         public int Score;
+        public int spawned = 0;
+        public int level = 0;
 
         int RowCheck;
         int ColumnCheck;
@@ -129,6 +131,12 @@ namespace Tetris2
                     ResetTable();
                     GameOver = 0;
                     blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1, 8), this));
+                    spawned += 1;
+                    if (spawned >= 10)
+                    {
+                    level += 1;
+                    spawned = 0;
+                    }
                 }
 
             base.Update(gameTime);
@@ -172,6 +180,8 @@ namespace Tetris2
             {
                 TetrisTable[i, tableheight - 1] = 1;
             }
+            level = 0;
+            spawned = 0;
         }
     }
 }
