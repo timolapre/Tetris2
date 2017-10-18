@@ -89,13 +89,7 @@ namespace Tetris2.Content
                     {
                         if (timer > 30)
                         {
-                            falling = false;
-                            for (int i = 0; i < 3; i++)
-                                for (int x = 0; x < 3; x++)
-                                    if (table[i, x] == 1)
-                                        Game1.TetrisTable[posX + x, posY + i] = 1;
-                            game.score1 += 10;
-                            Game1.createnewblock = 1;
+                            PlaceBlok();
                         }
                     }
                 }
@@ -103,26 +97,14 @@ namespace Tetris2.Content
                 {
                     if (timer > 30)
                     {
-                        falling = false;
-                        for (int i = 0; i < 3; i++)
-                            for (int x = 0; x < 3; x++)
-                                if (table[i, x] == 1)
-                                    Game1.TetrisTable[posX + x, posY + i] = 1;
-                        game.score1 += 10;
-                        Game1.createnewblock = 1;
+                        PlaceBlok();
                     }
                 }
                 if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 1] == 1 && table[0, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 1] == 1 && table[0, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 1] == 1 && table[0, 2] == 1))
                 {
                     if (timer > 30)
                     {
-                        falling = false;
-                        for (int i = 0; i < 3; i++)
-                            for (int x = 0; x < 3; x++)
-                                if (table[i, x] == 1)
-                                    Game1.TetrisTable[posX + x, posY + i] = 1;
-                        game.score1 += 10;
-                        Game1.createnewblock = 1;
+                        PlaceBlok();
                     }
                 }
             }
@@ -135,6 +117,16 @@ namespace Tetris2.Content
             {
                 posY = 3;
             }
+        }
+
+        private void PlaceBlok()
+        {
+            falling = false;
+            for (int i = 0; i < 3; i++)
+                for (int x = 0; x < 3; x++)
+                    if (table[i, x] == 1)
+                        Game1.TetrisTable[posX + x, posY + i] = 1;
+            Game1.createnewblock = 1;
         }
 
         public void BlockDraw()

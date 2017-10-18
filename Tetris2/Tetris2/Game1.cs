@@ -112,13 +112,11 @@ namespace Tetris2
                 SkipWhile++;
                 BlockCounter++;
                 ColumnCheck = MathHelper.Min(ColumnCheck+1,tablewidth-1);
-                Console.WriteLine(BlockCounter +" "+ RowCheck);
             }
             if (BlockCounter == tablewidth)
             {
                 RemoveRow(RowCheck);
                 BlockCounter = 0;
-                Console.WriteLine(RowCheck + " " + ColumnCheck + " " + BlockCounter);
             }
             BlockCounter = 0;
             SkipWhile = 0;
@@ -163,6 +161,7 @@ namespace Tetris2
         {
             int RandomBlock = r.Next(1,8);
             blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), RandomBlock, this));
+            score1 += 10;
         }
 
         private void RemoveRow(int x)
