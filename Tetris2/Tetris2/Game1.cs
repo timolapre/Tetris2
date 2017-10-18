@@ -19,7 +19,7 @@ namespace Tetris2
         static Random r;
         static public int GameOver = 0;
 
-        public double score = 0;
+        public double score1 = 0;
         public int spawned = 0;
         public int level = 0;
 
@@ -33,7 +33,7 @@ namespace Tetris2
 
         static public int[,] TetrisTable;
 
-        Score scoreclass;
+        Score score;
 
         //Content.Block block;
         List<Content.Block> blocklist = new List<Content.Block>();
@@ -65,7 +65,6 @@ namespace Tetris2
             {
                 TetrisTable[i, tableheight-1] = 1;
             }
-
 
             base.Initialize();
         }
@@ -105,8 +104,7 @@ namespace Tetris2
                 if (GameOver == 0)
                     NewBlock();
 
-                createnewblock = 0;
-                
+                createnewblock = 0;   
             }
 
             while (TetrisTable[ColumnCheck, RowCheck] == 1 && SkipWhile < tablewidth)
@@ -115,7 +113,7 @@ namespace Tetris2
                 BlockCounter++;
                 ColumnCheck = MathHelper.Min(ColumnCheck+1,tablewidth-1);
                 Console.WriteLine(BlockCounter +" "+ RowCheck);
-           }
+            }
             if (BlockCounter == tablewidth)
             {
                 RemoveRow(RowCheck);
@@ -155,7 +153,7 @@ namespace Tetris2
                         spriteBatch.Draw(blocktexture, new Vector2(x * blocktexture.Width, i * blocktexture.Height), Color.SeaGreen);
             if (GameOver == 1)
                 spriteBatch.DrawString(font, "Press Space to play again", new Vector2(60, 400), Color.White);
-            spriteBatch.DrawString(font, score+"", new Vector2(100,100), Color.White);
+            spriteBatch.DrawString(font, score1+"", new Vector2(100,100), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -172,7 +170,8 @@ namespace Tetris2
             for (int i = x; i > 0; i--)
                 for (int p = 0; p < tablewidth; p++)
                     TetrisTable[p, i] = TetrisTable[p, i-1];
-                    scoreclass.RemovedRow++;           
+            //score.RemovedRow++; 
+            score1 += 25;          
         }
         
         private void ResetTable()

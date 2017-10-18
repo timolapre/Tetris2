@@ -9,9 +9,9 @@ namespace Tetris2
     class Score
     {
 
-        public int RemovedRow;
+        public int RemovedRow = 0;
         int ScoreTime;
-        int CountRemovedRows;
+        int CountRemovedRows = 0;
         double Combo = 0.10;
 
         Game1 game;
@@ -35,7 +35,7 @@ namespace Tetris2
 
             if (CountRemovedRows == 1)
             {
-                game.score += (10 * Combo);
+                game.score1 += (10 * Combo);
             }                
         }
     }
