@@ -33,6 +33,8 @@ namespace Tetris2
 
         static public int[,] TetrisTable;
 
+        Score scoreclass;
+
         //Content.Block block;
         List<Content.Block> blocklist = new List<Content.Block>();
 
@@ -153,6 +155,7 @@ namespace Tetris2
                         spriteBatch.Draw(blocktexture, new Vector2(x * blocktexture.Width, i * blocktexture.Height), Color.SeaGreen);
             if (GameOver == 1)
                 spriteBatch.DrawString(font, "Press Space to play again", new Vector2(60, 400), Color.White);
+            spriteBatch.DrawString(font, score+"", new Vector2(100,100), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -169,7 +172,7 @@ namespace Tetris2
             for (int i = x; i > 0; i--)
                 for (int p = 0; p < tablewidth; p++)
                     TetrisTable[p, i] = TetrisTable[p, i-1];
-                    Score.RemovedRow++;           
+                    scoreclass.RemovedRow++;           
         }
         
         private void ResetTable()
