@@ -20,6 +20,7 @@ namespace Tetris2
         static Random r;
         static public int GameOver = 0;
 
+        public int NextBlock;
         public double score1 = 0;
         public int spawned = 0;
         public int level = 0;
@@ -67,7 +68,8 @@ namespace Tetris2
             //block = new Content.Block(Content.Load<Texture2D>("block2"), 1, this);
 
             blocktexture = Content.Load<Texture2D>("block2");
-            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1,9), this));
+            NextBlock = r.Next(1, 8);
+            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1,8), this));
 
             for (int i = 0; i < tablewidth; i++)
             {
@@ -99,6 +101,8 @@ namespace Tetris2
 
             previouskeyboardstate = currentkeyboardstate;
             currentkeyboardstate = Keyboard.GetState();
+
+            //NextBlock
 
             if(createnewblock == 0)
             {
@@ -136,7 +140,8 @@ namespace Tetris2
                 {
                     ResetTable();
                     GameOver = 0;
-                    blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1, 9), this));
+                    blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1, 8), this));
+                    NextBlock = r.Next(1, 8);
                     spawned += 1;
                     if (spawned >= 10)
                     {
@@ -174,7 +179,8 @@ namespace Tetris2
 
         public void NewBlock()
         {
-            int RandomBlock = r.Next(1,9);
+            int RandomBlock = NextBlock;
+            NextBlock = r.Next(1,8);
             blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), RandomBlock, this));
             score1 += 10;
         }
