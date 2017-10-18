@@ -58,10 +58,10 @@ namespace Tetris2.Content
 
             //Moving
             if (Game1.currentkeyboardstate.IsKeyDown(Keys.Left) && Game1.previouskeyboardstate.IsKeyUp(Keys.Left))
-                if ((Game1.TetrisTable[MathHelper.Max(posX - 1, 0), posY] == 1 && table[0, 0] == 1) || (Game1.TetrisTable[MathHelper.Max(posX - 1, 0), posY + 1] == 1 && table[1, 0] == 1) || (Game1.TetrisTable[MathHelper.Max(posX - 1, 0), posY + 2] == 1 && table[2, 0] == 1) || (Game1.TetrisTable[MathHelper.Max(posX, 0), posY] == 1 && table[0, 1] == 1) || (Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 1] == 1 && table[1, 1] == 1) || (Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 2] == 1 && table[2, 1] == 1)) { }
+                if ((Game1.TetrisTable[MathHelper.Max(posX - 1, 0), posY] >= 1 && table[0, 0] == 1) || (Game1.TetrisTable[MathHelper.Max(posX - 1, 0), posY + 1] >= 1 && table[1, 0] == 1) || (Game1.TetrisTable[MathHelper.Max(posX - 1, 0), posY + 2] >= 1 && table[2, 0] == 1) || (Game1.TetrisTable[MathHelper.Max(posX, 0), posY] >= 1 && table[0, 1] == 1) || (Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 1] >= 1 && table[1, 1] == 1) || (Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 2] >= 1 && table[2, 1] == 1)) { }
                     else posX -= 1;
             if (Game1.currentkeyboardstate.IsKeyDown(Keys.Right) && Game1.previouskeyboardstate.IsKeyUp(Keys.Right))
-                if ((Game1.TetrisTable[MathHelper.Min(posX + 3, Game1.tablewidth-3), posY] == 1 && table[0, 2] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 3, Game1.tablewidth-3), posY + 1] == 1 && table[1, 2] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 3, Game1.tablewidth-3), posY + 2] == 1 && table[2, 2] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth-3), posY] == 1 && table[0, 1] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth-3), posY + 1] == 1 && table[1, 1] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth-3), posY + 2] == 1 && table[2, 1] == 1)) { }
+                if ((Game1.TetrisTable[MathHelper.Min(posX + 3, Game1.tablewidth-3), posY] >= 1 && table[0, 2] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 3, Game1.tablewidth-3), posY + 1] >= 1 && table[1, 2] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 3, Game1.tablewidth-3), posY + 2] >= 1 && table[2, 2] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth-3), posY] >= 1 && table[0, 1] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth-3), posY + 1] >= 1 && table[1, 1] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth-3), posY + 2] >= 1 && table[2, 1] == 1)) { }
                     else posX += 1;
 
             if (table[0, 0] == 0 && table[1, 0] == 0 && table[2, 0] == 0 && table[0, 2] == 0 && table[1, 2] == 0 && table[2, 2] == 0)
@@ -85,7 +85,7 @@ namespace Tetris2.Content
             {
                 if (table[2, 0] == 1 || table[2, 1] == 1 || table[2, 2] == 1)
                 {
-                    if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 3] == 1 && table[2, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 3] == 1 && table[2, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 3] == 1 && table[2, 2] == 1))
+                    if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 3] >= 1 && table[2, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 3] >= 1 && table[2, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 3] >= 1 && table[2, 2] == 1))
                     {
                         if (timer > 30)
                         {
@@ -93,14 +93,14 @@ namespace Tetris2.Content
                         }
                     }
                 }
-                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 2] == 1 && table[1, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 2] == 1 && table[1, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 2] == 1 && table[1, 2] == 1))
+                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 2] >= 1 && table[1, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 2] >= 1 && table[1, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 2] >= 1 && table[1, 2] == 1))
                 {
                     if (timer > 30)
                     {
                         PlaceBlok();
                     }
                 }
-                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 1] == 1 && table[0, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 1] == 1 && table[0, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 1] == 1 && table[0, 2] == 1))
+                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 1] >= 1 && table[0, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 1] >= 1 && table[0, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 1] >= 1 && table[0, 2] == 1))
                 {
                     if (timer > 30)
                     {
@@ -125,7 +125,8 @@ namespace Tetris2.Content
             for (int i = 0; i < 3; i++)
                 for (int x = 0; x < 3; x++)
                     if (table[i, x] == 1)
-                        Game1.TetrisTable[posX + x, posY + i] = 1;
+                        Game1.TetrisTable[posX + x, posY + i] = blockID;
+            game.color = color;
             Game1.createnewblock = 1;
         }
 
@@ -392,6 +393,43 @@ namespace Tetris2.Content
                                     };
                 }
             }
+            /*//BlockID = 8
+            if (blockID == 8)
+            {
+                color = Color.LightBlue;
+                if (rotation == 0)
+                {
+                    table = new int[,] {
+                                        {1,1,0,} ,
+                                        {0,1,0,} ,
+                                        {0,1,1,} ,
+                                    };
+                }
+                else if (rotation == 1)
+                {
+                    table = new int[,] {
+                                        {0,0,1,} ,
+                                        {1,1,1,} ,
+                                        {1,0,0,} ,
+                                    };
+                }
+                else if (rotation == 2)
+                {
+                    table = new int[,] {
+                                        {1,1,0,} ,
+                                        {0,1,0,} ,
+                                        {0,1,1,} ,
+                                    };
+                }
+                else if (rotation == 3)
+                {
+                    table = new int[,] {
+                                        {0,0,1,} ,
+                                        {1,1,1,} ,
+                                        {1,0,0,} ,
+                                    };
+                }
+            }*/
         }
     }
 }

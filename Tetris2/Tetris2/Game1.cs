@@ -30,8 +30,10 @@ namespace Tetris2
 
         SpriteFont font;
         Texture2D blocktexture;
+        public Color color;
 
         static public int[,] TetrisTable;
+        Color[] colorlist;
 
         Score score;
 
@@ -47,10 +49,15 @@ namespace Tetris2
         protected override void Initialize()
         {
             IsMouseVisible = true;
-            graphics.PreferredBackBufferHeight = 800;
-            graphics.PreferredBackBufferWidth = 1300;
+            graphics.PreferredBackBufferHeight = 740;
+            graphics.PreferredBackBufferWidth = 1250;
             graphics.ApplyChanges();
             //graphics.ToggleFullScreen();
+
+            colorlist = new Color[]
+            {
+                Color.Purple, Color.Orange, Color.Blue, Color.Red, Color.Green, Color.Pink, Color.Yellow
+            };
 
             r = new Random();
 
@@ -59,7 +66,7 @@ namespace Tetris2
             //block = new Content.Block(Content.Load<Texture2D>("block2"), 1, this);
 
             blocktexture = Content.Load<Texture2D>("block2");
-            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1,8), this));
+            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1,9), this));
 
             for (int i = 0; i < tablewidth; i++)
             {
@@ -107,7 +114,7 @@ namespace Tetris2
                 createnewblock = 0;   
             }
 
-            while (TetrisTable[ColumnCheck, RowCheck] == 1 && SkipWhile < tablewidth)
+            while (TetrisTable[ColumnCheck, RowCheck] >= 1 && SkipWhile < tablewidth)
             {
                 SkipWhile++;
                 BlockCounter++;
@@ -127,7 +134,7 @@ namespace Tetris2
                 {
                     ResetTable();
                     GameOver = 0;
-                    blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1, 8), this));
+                    blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1, 9), this));
                     spawned += 1;
                     if (spawned >= 10)
                     {
@@ -147,8 +154,11 @@ namespace Tetris2
                 block.Draw(spriteBatch);
             for (int i = 0; i < tableheight; i++)
                 for (int x = 0; x < tablewidth; x++)
-                    if (TetrisTable[x, i] == 1)
-                        spriteBatch.Draw(blocktexture, new Vector2(x * blocktexture.Width, i * blocktexture.Height), Color.SeaGreen);
+                    if (TetrisTable[x, i] >= 1)
+                    {
+                        spriteBatch.Draw(blocktexture, new Vector2(x * blocktexture.Width, i * blocktexture.Height), colorlist[TetrisTable[x,i]-1]);
+                    }
+                        
             if (GameOver == 1)
                 spriteBatch.DrawString(font, "Press Space to play again", new Vector2(60, 400), Color.White);
             spriteBatch.DrawString(font, score1+"", new Vector2(100,100), Color.White);
@@ -159,7 +169,7 @@ namespace Tetris2
 
         public void NewBlock()
         {
-            int RandomBlock = r.Next(1,8);
+            int RandomBlock = r.Next(1,9);
             blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), RandomBlock, this));
             score1 += 10;
         }
@@ -182,6 +192,7 @@ namespace Tetris2
             }
             level = 0;
             spawned = 0;
+            score1 = 0;
         }
     }
 }
