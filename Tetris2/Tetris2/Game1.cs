@@ -19,8 +19,7 @@ namespace Tetris2
         static Random r;
         static public int GameOver = 0;
 
-        Score score;
-        public int Score;
+        public double score = 0;
         public int spawned = 0;
         public int level = 0;
 
@@ -170,7 +169,7 @@ namespace Tetris2
             for (int i = x; i > 0; i--)
                 for (int p = 0; p < tablewidth; p++)
                     TetrisTable[p, i] = TetrisTable[p, i-1];
-                    //score.RemovedRow++;           
+                    Score.RemovedRow++;           
         }
         
         private void ResetTable()

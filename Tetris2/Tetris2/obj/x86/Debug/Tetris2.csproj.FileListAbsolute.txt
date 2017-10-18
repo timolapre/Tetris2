@@ -54,3 +54,6 @@ C:\Users\Henkdesteen\Source\Repos\Tetris23\Tetris2\Tetris2\obj\x86\Debug\Tetris2
 C:\Users\Henkdesteen\Source\Repos\Tetris23\Tetris2\Tetris2\obj\x86\Debug\Tetris2.pdb
 C:\Users\timol\Source\Repos\Tetris2\Tetris2\Tetris2\bin\Windows\x86\Debug\Content\Block2.xnb
 C:\Users\timol\Source\Repos\Tetris2\Tetris2\Tetris2\bin\Windows\x86\Debug\Content\font.xnb
+C:\Users\Henkdesteen\Source\Repos\Tetris25\Tetris2\Tetris2\obj\x86\Debug\Tetris2.exe
+C:\Users\Henkdesteen\Source\Repos\Tetris25\Tetris2\Tetris2\obj\x86\Debug\Tetris2.pdb
+C:\Users\Henkdesteen\Source\Repos\Tetris25\Tetris2\Tetris2\obj\x86\Debug\Tetris2.csprojResolveAssemblyReference.cache

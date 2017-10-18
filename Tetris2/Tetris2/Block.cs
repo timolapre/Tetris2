@@ -118,6 +118,7 @@ namespace Tetris2.Content
                             for (int x = 0; x < 3; x++)
                                 if (table[i, x] == 1)
                                     Game1.TetrisTable[posX + x, posY + i] = 1;
+                        game.score += 10;
                         Game1.createnewblock = 1;
                     }
                 }
