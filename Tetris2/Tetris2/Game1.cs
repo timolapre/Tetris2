@@ -17,7 +17,7 @@ namespace Tetris2
         static public int tablewidth = 12;
         static public int tableheight = 20;
         static public int createnewblock;
-        static Random r;
+        static public Random r;
         static public int GameOver = 0;
 
         public int NextBlock;
@@ -29,6 +29,7 @@ namespace Tetris2
         int ColumnCheck;
         int SkipWhile;
         int BlockCounter;
+        int SpawnBlock;
 
         SpriteFont font;
         Texture2D blocktexture;
@@ -37,7 +38,9 @@ namespace Tetris2
         static public int[,] TetrisTable;
         Color[] colorlist;
 
-        Score score;
+        NextBlock nextblock;
+
+        //Score score;
 
         //Content.Block block;
         List<Content.Block> blocklist = new List<Content.Block>();
@@ -68,8 +71,10 @@ namespace Tetris2
             //block = new Content.Block(Content.Load<Texture2D>("block2"), 1, this);
 
             blocktexture = Content.Load<Texture2D>("block2");
-            NextBlock = r.Next(1, 8);
             blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1,8), this));
+
+            nextblock = new NextBlock();
+            NextBlock = r.Next(1, 8);
 
             for (int i = 0; i < tablewidth; i++)
             {
@@ -102,9 +107,9 @@ namespace Tetris2
             previouskeyboardstate = currentkeyboardstate;
             currentkeyboardstate = Keyboard.GetState();
 
-            //NextBlock
+            nextblock.Update();
 
-            if(createnewblock == 0)
+            if (createnewblock == 0)
             {
                 foreach (Content.Block block in blocklist)
                 {
@@ -136,7 +141,7 @@ namespace Tetris2
             ColumnCheck = 0;
             RowCheck = (RowCheck + 1) % (tableheight - 1);
 
-            if(GameOver == 1 && Keyboard.GetState().IsKeyDown(Keys.Space))
+            if(GameOver == 1 && currentkeyboardstate.IsKeyDown(Keys.Space) && previouskeyboardstate.IsKeyUp(Keys.Space))
                 {
                     ResetTable();
                     GameOver = 0;
@@ -172,6 +177,7 @@ namespace Tetris2
             if (GameOver == 1)
                 spriteBatch.DrawString(font, "Press Space to play again", new Vector2(60, 400), Color.White);
             spriteBatch.DrawString(font, score1+"", new Vector2(100,100), Color.White);
+            nextblock.Draw(spriteBatch, blocktexture, NextBlock);
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -179,9 +185,10 @@ namespace Tetris2
 
         public void NewBlock()
         {
-            int RandomBlock = NextBlock;
+            SpawnBlock = NextBlock;
             NextBlock = r.Next(1,8);
-            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), RandomBlock, this));
+            Console.WriteLine(NextBlock);
+            blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), SpawnBlock, this));
             score1 += 10;
         }
 

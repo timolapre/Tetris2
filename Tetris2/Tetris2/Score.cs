@@ -18,6 +18,7 @@ namespace Tetris2
 
         void RemoveRemovedRow()
         {
+            game = new Game1();
             if (RemovedRow == 1 || RemovedRow == 2 || RemovedRow == 3)
             {
                 ScoreTime++;

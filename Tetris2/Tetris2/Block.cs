@@ -43,13 +43,17 @@ namespace Tetris2.Content
         public void BlockUpdate()
         {
             timer++;
-            if (Keyboard.GetState().IsKeyDown(Keys.Down)) timer += 15;
+            if (Game1.currentkeyboardstate.IsKeyDown(Keys.Down) && Game1.previouskeyboardstate.IsKeyUp(Keys.Down))
+                timer += 20;
+
             //Falling
-            if (timer > 40 - (game.level) && falling)
+            if (timer > 40 - (game.level) && falling && CanFall() == true)
             {
                 posY++;
                 timer = 0;
             }
+            if (CanFall() == false && timer > 40)
+                PlaceBlok();
 
 
             //Rotation
@@ -81,7 +85,7 @@ namespace Tetris2.Content
                 posX = MathHelper.Min(MathHelper.Max(posX, 0), Game1.tablewidth - 3);
             }
 
-            if (falling)
+            /*if (falling)
             {
                 if (table[2, 0] == 1 || table[2, 1] == 1 || table[2, 2] == 1)
                 {
@@ -107,7 +111,7 @@ namespace Tetris2.Content
                         PlaceBlok();
                     }
                 }
-            }
+            }*/
 
             //GameOver
             if (falling == false && posY <= 2)
@@ -430,6 +434,30 @@ namespace Tetris2.Content
                                     };
                 }
             }*/
+        }
+
+        public bool CanFall()
+        {
+            if (falling)
+            {
+                if (table[2, 0] == 1 || table[2, 1] == 1 || table[2, 2] == 1)
+                {
+                    if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 3] >= 1 && table[2, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 3] >= 1 && table[2, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 3] >= 1 && table[2, 2] == 1))
+                    {
+                        return false;
+                    }
+                }
+                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 2] >= 1 && table[1, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 2] >= 1 && table[1, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 2] >= 1 && table[1, 2] == 1))
+                {
+                    return false;
+                }
+                if ((Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 1] >= 1 && table[0, 0] == 1) || (Game1.TetrisTable[posX + 1, posY + 1] >= 1 && table[0, 1] == 1) || (Game1.TetrisTable[posX + 2, posY + 1] >= 1 && table[0, 2] == 1))
+                {
+                    return false;
+                }
+                return true;
+            }
+            return true;
         }
     }
 }

@@ -13,20 +13,29 @@ namespace Tetris2
         Game1 game;
         int[,] block;
         Color color;
+        int nextblock = 1;
 
-        public void Draw(SpriteBatch spritebatch, Texture2D texture)
+        public void Update()
         {
+            game = new Game1();
+            //nextblock = game.NextBlock;
+            BlockDraw();
+        }
+
+        public void Draw(SpriteBatch spritebatch, Texture2D texture, int next)
+        {
+            nextblock = next;
             BlockDraw();
             for (int i = 0; i < 3; i++)
                 for (int x = 0; x < 3; x++)
                     if (block[x, i] == 1)
-                        spritebatch.Draw(texture, new Vector2((460 + i) * texture.Width, (30 + x) * texture.Height), color);
+                        spritebatch.Draw(texture, new Vector2(i * texture.Width +500, x * texture.Height+ 60), color);
         }
 
         public void BlockDraw()
         {
-            //game.NextBlock = 1
-            if (game.NextBlock == 1)
+            //nextblock = 1
+            if (nextblock == 1)
             {
                 color = Color.Purple;
 
@@ -37,7 +46,7 @@ namespace Tetris2
                                     };
             }
 
-            if (game.NextBlock == 2)
+            if (nextblock == 2)
             {
                 color = Color.Orange;
                     block = new int[,] {
@@ -46,8 +55,8 @@ namespace Tetris2
                                         {0,1,1,} ,
                                     };
             }
-            //game.NextBlock = 3
-            if (game.NextBlock == 3)
+            //nextblock = 3
+            if (nextblock == 3)
             {
                 color = Color.Blue;
                     block = new int[,] {
@@ -56,8 +65,8 @@ namespace Tetris2
                                         {1,1,0,} ,
                                     };
             }
-            //game.NextBlock = 4
-            if (game.NextBlock == 4)
+            //nextblock = 4
+            if (nextblock == 4)
             {
                 color = Color.Red;
                     block = new int[,] {
@@ -66,8 +75,8 @@ namespace Tetris2
                                         {0,1,1,} ,
                                     };
             }
-            //game.NextBlock = 5
-            if (game.NextBlock == 5)
+            //nextblock = 5
+            if (nextblock == 5)
             {
                 color = Color.Green;
                     block = new int[,] {
@@ -76,8 +85,8 @@ namespace Tetris2
                                         {1,1,0,} ,
                                     };
             }
-            //game.NextBlock = 6
-            if (game.NextBlock == 6)
+            //nextblock = 6
+            if (nextblock == 6)
             {
                 color = Color.Pink;
                     block = new int[,] {
@@ -86,8 +95,8 @@ namespace Tetris2
                                         {0,1,0,} ,
                                     };
             }
-            //game.NextBlock = 7
-            if (game.NextBlock == 7)
+            //nextblock = 7
+            if (nextblock == 7)
             {
                 color = Color.Yellow;
                     block = new int[,] {
@@ -99,3 +108,38 @@ namespace Tetris2
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// Made by Timo Lapre (5919622) & Niels Visser
