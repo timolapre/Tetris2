@@ -11,6 +11,7 @@ namespace Tetris2
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D Background;
         static public KeyboardState currentkeyboardstate;
         static public KeyboardState previouskeyboardstate;
         static public int tablewidth = 12;
@@ -72,6 +73,7 @@ namespace Tetris2
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Background = Content.Load<Texture2D>("Background");
             font = Content.Load<SpriteFont>("font");
         }
 
@@ -143,6 +145,9 @@ namespace Tetris2
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+
+            spriteBatch.Draw(Background, new Vector2(),Color.White);
+
             foreach(Content.Block block in blocklist)
                 block.Draw(spriteBatch);
             for (int i = 0; i < tableheight; i++)

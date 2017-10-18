@@ -82,3 +82,4 @@ C:\Users\Henkdesteen\Source\Repos\Tetris25\Tetris2\Tetris2\bin\Windows\x86\Debug
 C:\Users\Henkdesteen\Source\Repos\Tetris25\Tetris2\Tetris2\bin\Windows\x86\Debug\SharpDX.XInput.xml
 C:\Users\Henkdesteen\Source\Repos\Tetris25\Tetris2\Tetris2\bin\Windows\x86\Debug\SharpDX.RawInput.xml
 C:\Users\Henkdesteen\Source\Repos\Tetris25\Tetris2\Tetris2\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
+C:\Users\Henkdesteen\Source\Repos\Tetris25\Tetris2\Tetris2\bin\Windows\x86\Debug\Content\Background.xnb
