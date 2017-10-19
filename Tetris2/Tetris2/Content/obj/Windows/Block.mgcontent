@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/timol/Source/Repos/Tetris2/Tetris2/Tetris2/Content/Block.png</SourceFile>
+  <SourceFile>C:/Users/timol/source/repos/Tetris2/Tetris2/Tetris2/Content/Block.png</SourceFile>
   <SourceTime>2017-10-11T14:03:12.9715909+02:00</SourceTime>
-  <DestFile>C:/Users/timol/Source/Repos/Tetris2/Tetris2/Tetris2/Content/bin/Windows/Block.xnb</DestFile>
-  <DestTime>2017-10-18T16:19:34.9033867+02:00</DestTime>
+  <DestFile>C:/Users/timol/source/repos/Tetris2/Tetris2/Tetris2/Content/bin/Windows/Block.xnb</DestFile>
+  <DestTime>2017-10-19T17:54:48.21671+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2016-03-30T08:36:08+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
