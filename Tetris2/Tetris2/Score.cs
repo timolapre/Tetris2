@@ -8,7 +8,7 @@ namespace Tetris2
 {
     class Score
     {
-
+        //ongebruikte code die een dynamische score kan berekenen
         public int RemovedRow = 0;
         int ScoreTime;
         int CountRemovedRows = 0;

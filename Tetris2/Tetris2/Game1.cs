@@ -14,17 +14,21 @@ namespace Tetris2
         Texture2D Background;
         static public KeyboardState currentkeyboardstate;
         static public KeyboardState previouskeyboardstate;
+        //groote speelveld word hier bepaald
         static public int tablewidth = 12;
         static public int tableheight = 20;
         static public int createnewblock;
+        //randomgenerator
         static public Random r;
         static public int GameOver = 0;
 
+        //variabelen nodig voor bijhouden scores en andere gameplay waarden
         public int NextBlock;
         public double score1 = 0;
         public int spawned = 0;
         public int level = 0;
 
+        //ints nodig voor het grid
         int RowCheck;
         int ColumnCheck;
         int SkipWhile;
@@ -59,6 +63,7 @@ namespace Tetris2
             graphics.ApplyChanges();
             //graphics.ToggleFullScreen();
 
+            //lijst kleuren die de blokjes kunnen hebben
             colorlist = new Color[]
             {
                 Color.Purple, Color.Orange, Color.Blue, Color.Red, Color.Green, Color.Pink, Color.Yellow
@@ -70,12 +75,14 @@ namespace Tetris2
 
             //block = new Content.Block(Content.Load<Texture2D>("block2"), 1, this);
 
+            //initializen van het blokje
             blocktexture = Content.Load<Texture2D>("block2");
             blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1,8), this));
 
             nextblock = new NextBlock();
             NextBlock = r.Next(1, 8);
 
+            //initializen speelveld
             for (int i = 0; i < tablewidth; i++)
             {
                 TetrisTable[i, tableheight-1] = 1;
@@ -84,6 +91,7 @@ namespace Tetris2
             base.Initialize();
         }
 
+        //initializen van achtergrond en een font
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -97,6 +105,7 @@ namespace Tetris2
 
         protected override void Update(GameTime gameTime)
         {
+            //enkele inputs voor debuggen en het spel pauzeren
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -107,6 +116,7 @@ namespace Tetris2
             previouskeyboardstate = currentkeyboardstate;
             currentkeyboardstate = Keyboard.GetState();
 
+            //initializen blokjes
             nextblock.Update();
 
             if (createnewblock == 0)
@@ -125,6 +135,7 @@ namespace Tetris2
                 createnewblock = 0;   
             }
 
+            //zorgen dat hey spel door kan lopen en niet stop
             while (TetrisTable[ColumnCheck, RowCheck] >= 1 && SkipWhile < tablewidth)
             {
                 SkipWhile++;
@@ -141,6 +152,7 @@ namespace Tetris2
             ColumnCheck = 0;
             RowCheck = (RowCheck + 1) % (tableheight - 1);
 
+            //de moelijkheid dus het level van het spel verhogen als de speler het goed doet
             if(GameOver == 1 && currentkeyboardstate.IsKeyDown(Keys.Space) && previouskeyboardstate.IsKeyUp(Keys.Space))
                 {
                     ResetTable();
@@ -158,6 +170,7 @@ namespace Tetris2
             base.Update(gameTime);
         }
 
+        //het tekenen van het grid en de blokjes
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -167,13 +180,16 @@ namespace Tetris2
 
             foreach(Content.Block block in blocklist)
                 block.Draw(spriteBatch);
+            
+            //tekenen spelgrid
             for (int i = 0; i < tableheight; i++)
                 for (int x = 0; x < tablewidth; x++)
                     if (TetrisTable[x, i] >= 1)
                     {
                         spriteBatch.Draw(blocktexture, new Vector2(x * blocktexture.Width, i * blocktexture.Height), colorlist[TetrisTable[x,i]-1]);
                     }
-                        
+            
+            //zorgen dat de speler verliest als de blokjes de top van het speelveld raken            
             if (GameOver == 1)
                 spriteBatch.DrawString(font, "Press Space to play again", new Vector2(60, 400), Color.White);
             spriteBatch.DrawString(font, score1+"", new Vector2(100,100), Color.White);
@@ -183,6 +199,7 @@ namespace Tetris2
             base.Draw(gameTime);
         }
 
+        //zorgen dat er een nieuw blokje spawnt als de oude geplaatst is
         public void NewBlock()
         {
             SpawnBlock = NextBlock;
@@ -192,6 +209,7 @@ namespace Tetris2
             score1 += 10;
         }
 
+        //deze methode maakt het mogelijk een rij weg te halen
         private void RemoveRow(int x)
         {
             for (int i = x; i > 0; i--)
@@ -201,6 +219,7 @@ namespace Tetris2
             score1 += 25;          
         }
         
+        //deze methode rest het hele spel als je verloren hebt
         private void ResetTable()
         {
             Array.Clear(TetrisTable, 0, TetrisTable.Length);

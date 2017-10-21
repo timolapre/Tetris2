@@ -11,6 +11,7 @@ namespace Tetris2.Content
 {
     class Block
     {
+        //variabelen nodig om het blokje te initialiseren
         Texture2D texture;
         int blockID;
         int[,] table;
@@ -23,6 +24,7 @@ namespace Tetris2.Content
         //Score score;
         Color color;
 
+        //zorgen dat het blokje een texture heeft
         public Block(Texture2D newtexture, int block, Game1 game)
         {
             texture = newtexture;
@@ -31,6 +33,7 @@ namespace Tetris2.Content
             this.game = game;
         }
 
+        //het blokje daatwerkelijk in een grid tekenen
         public void Draw(SpriteBatch spritebatch)
         {
             if (falling == true)
@@ -42,25 +45,27 @@ namespace Tetris2.Content
 
         public void BlockUpdate()
         {
+            //zorgen dat de speler het vallen van het blokje kan versnellen
             timer++;
             if (Game1.currentkeyboardstate.IsKeyDown(Keys.Down) && Game1.previouskeyboardstate.IsKeyUp(Keys.Down))
                 timer += 20;
 
-            //Falling
+            //ervoor zorgen dat het blokje kan vallen
             if (timer > 40 - (game.level) && falling && CanFall() == true)
             {
                 posY++;
                 timer = 0;
             }
+            //zorgen dat het blokje stopt met valllen
             if (CanFall() == false && timer > 40)
                 PlaceBlok();
 
 
-            //Rotation
+            //ervoor zorgen dat het blokje rond kan draaien
             if (Game1.currentkeyboardstate.IsKeyDown(Keys.Up) && Game1.previouskeyboardstate.IsKeyUp(Keys.Up))
                 rotation = (rotation + 1) % 4;
 
-            //Moving
+            //De beweging en de collision van het blokje mogelijk maken
             if (Game1.currentkeyboardstate.IsKeyDown(Keys.Left) && Game1.previouskeyboardstate.IsKeyUp(Keys.Left))
                 if ((Game1.TetrisTable[MathHelper.Max(posX - 1, 0), posY] >= 1 && table[0, 0] == 1) || (Game1.TetrisTable[MathHelper.Max(posX - 1, 0), posY + 1] >= 1 && table[1, 0] == 1) || (Game1.TetrisTable[MathHelper.Max(posX - 1, 0), posY + 2] >= 1 && table[2, 0] == 1) || (Game1.TetrisTable[MathHelper.Max(posX, 0), posY] >= 1 && table[0, 1] == 1) || (Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 1] >= 1 && table[1, 1] == 1) || (Game1.TetrisTable[MathHelper.Max(posX, 0), posY + 2] >= 1 && table[2, 1] == 1)) { }
                     else posX -= 1;
@@ -68,6 +73,7 @@ namespace Tetris2.Content
                 if ((Game1.TetrisTable[MathHelper.Min(posX + 3, Game1.tablewidth-3), posY] >= 1 && table[0, 2] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 3, Game1.tablewidth-3), posY + 1] >= 1 && table[1, 2] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 3, Game1.tablewidth-3), posY + 2] >= 1 && table[2, 2] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth-3), posY] >= 1 && table[0, 1] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth-3), posY + 1] >= 1 && table[1, 1] == 1) || (Game1.TetrisTable[MathHelper.Min(posX + 2, Game1.tablewidth-3), posY + 2] >= 1 && table[2, 1] == 1)) { }
                     else posX += 1;
 
+            //mog wat helpende collision code
             if (table[0, 0] == 0 && table[1, 0] == 0 && table[2, 0] == 0 && table[0, 2] == 0 && table[1, 2] == 0 && table[2, 2] == 0)
             {
                 posX = MathHelper.Min(MathHelper.Max(posX, -1), Game1.tablewidth - 2);
@@ -123,6 +129,7 @@ namespace Tetris2.Content
             }
         }
 
+        //zorgen dat het blokje geplaatst kan worden en er een nieuw blokje ontstaat
         private void PlaceBlok()
         {
             falling = false;
@@ -134,6 +141,7 @@ namespace Tetris2.Content
             Game1.createnewblock = 1;
         }
 
+        //het tekenen van de verschillende blokjes in het grid (we weten dat we ze ook wiskundig konden draaien alleen dit begrepen we beter)
         public void BlockDraw()
         {
             //BlockID = 1
@@ -436,6 +444,7 @@ namespace Tetris2.Content
             }*/
         }
 
+        //bepalen wanneer het voor een blokje mogelijk is om te vallen en wanneer niet
         public bool CanFall()
         {
             if (falling)
