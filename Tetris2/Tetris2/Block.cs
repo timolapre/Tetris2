@@ -53,7 +53,7 @@ namespace Tetris2.Content
                 timer += 10;
 
             //ervoor zorgen dat het blokje kan vallen
-            if (timer > 40 - (game.level) && falling && CanFall() == true)
+            if (timer > 40 - (game.level-1)*1.5 && falling && CanFall() == true)
             {
                 posY++;
                 timer = 0;
@@ -74,7 +74,7 @@ namespace Tetris2.Content
                 else
                 {
                     TimerMoveLeft++;
-                    if (TimerMoveLeft % 10 == 0 || TimerMoveLeft == 1) posX -= 1;
+                    if (TimerMoveLeft % 8 == 0 || TimerMoveLeft == 1) posX -= 1;
                 }
             }
             else TimerMoveLeft = 0;
@@ -84,7 +84,7 @@ namespace Tetris2.Content
                 else
                 {
                     TimerMoveRight++;
-                    if (TimerMoveRight % 10 == 0 || TimerMoveRight == 1) posX += 1;
+                    if (TimerMoveRight % 8 == 0 || TimerMoveRight == 1) posX += 1;
                 }
             }
             else TimerMoveRight = 0;

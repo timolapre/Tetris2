@@ -28,7 +28,7 @@ namespace Tetris2
         public int NextBlock;
         public double score1 = 0;
         public int spawned = 0;
-        public int level = 0;
+        public int level = 1;
 
         //ints nodig voor het grid
         int RowCheck;
@@ -108,7 +108,7 @@ namespace Tetris2
 
             //sounds
             TetrisSong = Content.Load<Song>("tetrismusic");
-            //MediaPlayer.Play(TetrisSong);
+            MediaPlayer.Play(TetrisSong);
             RowClear = Content.Load<SoundEffect>("rowclear2");
         }
 
@@ -172,12 +172,6 @@ namespace Tetris2
                     GameOver = 0;
                     blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), r.Next(1, 8), this));
                     NextBlock = r.Next(1, 8);
-                    spawned += 1;
-                    if (spawned >= 10)
-                    {
-                    level += 1;
-                    spawned = 0;
-                    }
                 }
 
             base.Update(gameTime);
@@ -204,9 +198,12 @@ namespace Tetris2
             
             //zorgen dat de speler verliest als de blokjes de top van het speelveld raken            
             if (GameOver == 1)
-                spriteBatch.DrawString(font, "Press Space to play again", new Vector2(600, 200), Color.White);
+            {
+                spriteBatch.DrawString(font, "Game Over", new Vector2(200, 350), Color.White);
+                spriteBatch.DrawString(font, "Press Space to play again", new Vector2(70, 400), Color.White);
+            }
             spriteBatch.DrawString(font,"Score: " + score1, new Vector2(490,260), Color.White);
-            spriteBatch.DrawString(font, "Level: " + level, new Vector2(490, 290), Color.White);
+            spriteBatch.DrawString(font, "Level: " + level, new Vector2(490, 300), Color.White);
             nextblock.Draw(spriteBatch, blocktexture, NextBlock);
             spriteBatch.End();
 
@@ -221,6 +218,12 @@ namespace Tetris2
             Console.WriteLine(NextBlock);
             blocklist.Add(new Content.Block(Content.Load<Texture2D>("block2"), SpawnBlock, this));
             score1 += 10;
+            spawned += 1;
+            if (spawned >= 10)
+            {
+                level += 1;
+                spawned = 0;
+            }
         }
 
         //deze methode maakt het mogelijk een rij weg te halen
@@ -230,7 +233,7 @@ namespace Tetris2
                 for (int p = 0; p < tablewidth; p++)
                     TetrisTable[p, i] = TetrisTable[p, i-1];
             score1 += 100;
-            RowClear.Play();
+            //RowClear.Play();
         }
         
         //deze methode rest het hele spel als je verloren hebt

@@ -67,3 +67,9 @@
 /processorParam:Quality=Best
 /build:rowclear.mp3
 
+#begin rowclear2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:rowclear2.wav
+
