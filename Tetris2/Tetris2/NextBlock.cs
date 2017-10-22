@@ -10,14 +10,12 @@ namespace Tetris2
 {
     class NextBlock
     {
-        Game1 game;
         int[,] block;
         Color color;
         int nextblock = 1;
 
         public void Update()
         {
-            game = new Game1();
             //nextblock = game.NextBlock;
             BlockDraw();
         }

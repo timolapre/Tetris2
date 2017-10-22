@@ -46,6 +46,10 @@ namespace Tetris2
 
         NextBlock nextblock;
 
+        //sounds
+        SoundEffect RowClear;
+        Song TetrisSong;
+
         //Score score;
 
         //Content.Block block;
@@ -90,6 +94,8 @@ namespace Tetris2
                 TetrisTable[i, tableheight-1] = 1;
             }
 
+            MediaPlayer.Play(TetrisSong);
+
             base.Initialize();
         }
 
@@ -100,9 +106,10 @@ namespace Tetris2
             Background = Content.Load<Texture2D>("Background");
             font = Content.Load<SpriteFont>("font");
 
-            //sound
-            MediaPlayer.Play(Content.Load<Song>("tetrismusic"));
-            SoundEffect RowClear = Content.Load<SoundEffect>("rowclear");
+            //sounds
+            TetrisSong = Content.Load<Song>("tetrismusic");
+            //MediaPlayer.Play(TetrisSong);
+            RowClear = Content.Load<SoundEffect>("rowclear2");
         }
 
         protected override void UnloadContent()
@@ -198,7 +205,7 @@ namespace Tetris2
             //zorgen dat de speler verliest als de blokjes de top van het speelveld raken            
             if (GameOver == 1)
                 spriteBatch.DrawString(font, "Press Space to play again", new Vector2(60, 400), Color.White);
-            spriteBatch.DrawString(font, score1+"", new Vector2(100,100), Color.White);
+            spriteBatch.DrawString(font,"Score: " + score1, new Vector2(490,260), Color.White);
             nextblock.Draw(spriteBatch, blocktexture, NextBlock);
             spriteBatch.End();
 
@@ -221,8 +228,8 @@ namespace Tetris2
             for (int i = x; i > 0; i--)
                 for (int p = 0; p < tablewidth; p++)
                     TetrisTable[p, i] = TetrisTable[p, i-1];
-            //score.RemovedRow++; 
-            score1 += 25;          
+            score1 += 100;
+            RowClear.Play();
         }
         
         //deze methode rest het hele spel als je verloren hebt
