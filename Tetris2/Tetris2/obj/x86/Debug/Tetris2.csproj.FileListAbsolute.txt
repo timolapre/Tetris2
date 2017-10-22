@@ -117,3 +117,5 @@ C:\Users\Henkdesteen\Source\Repos\Tetris26\Tetris2\Tetris2\bin\Windows\x86\Debug
 C:\Users\Henkdesteen\Source\Repos\Tetris26\Tetris2\Tetris2\obj\x86\Debug\Tetris2.csprojResolveAssemblyReference.cache
 C:\Users\Henkdesteen\Source\Repos\Tetris26\Tetris2\Tetris2\bin\Windows\x86\Debug\Content\tetrismusic.wma
 C:\Users\Henkdesteen\Source\Repos\Tetris26\Tetris2\Tetris2\bin\Windows\x86\Debug\Content\tetrismusic.xnb
+C:\Users\niels\Source\Repos\Tetris26\Tetris2\Tetris2\obj\x86\Debug\Tetris2.exe
+C:\Users\niels\Source\Repos\Tetris26\Tetris2\Tetris2\obj\x86\Debug\Tetris2.pdb

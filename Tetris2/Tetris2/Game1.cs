@@ -204,8 +204,9 @@ namespace Tetris2
             
             //zorgen dat de speler verliest als de blokjes de top van het speelveld raken            
             if (GameOver == 1)
-                spriteBatch.DrawString(font, "Press Space to play again", new Vector2(60, 400), Color.White);
+                spriteBatch.DrawString(font, "Press Space to play again", new Vector2(600, 200), Color.White);
             spriteBatch.DrawString(font,"Score: " + score1, new Vector2(490,260), Color.White);
+            spriteBatch.DrawString(font, "Level: " + level, new Vector2(490, 290), Color.White);
             nextblock.Draw(spriteBatch, blocktexture, NextBlock);
             spriteBatch.End();
 
