@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -97,6 +99,10 @@ namespace Tetris2
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Background = Content.Load<Texture2D>("Background");
             font = Content.Load<SpriteFont>("font");
+
+            //sound
+            MediaPlayer.Play(Content.Load<Song>("tetrismusic"));
+            SoundEffect RowClear = Content.Load<SoundEffect>("rowclear");
         }
 
         protected override void UnloadContent()
